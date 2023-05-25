@@ -124,20 +124,11 @@ async def handle_client(websocket):
                 db.update_weight_data(name, new_weight)
                 db.update_change(name)
                 await websocket.send(xor_encrypt_decrypt("Weight Updated"))
-            elif data[0].lower() == "get weight data":
-                name = data[1]
-                new_weit = data[2]
-                today = datetime.datetime.today()
-                weight_data = db.get_weight_data(name)
-                td_data = db.get_td_data(name)
-                data = str(weight_data) + "," + str(new_weit) + "/" + str(td_data) + "," + str(today)
-                print(data)
-                await websocket.send(xor_encrypt_decrypt(data))
             elif data[0].lower() == "update name":
                 name = data[1]
                 new_name = data[2]
                 data = db.update_name(name, new_name)
-                await websocket.send(xor_encrypt_decrypt(new_name))
+                await websocket.send(xor_encrypt_decrypt(data))
             elif data[0].lower() == "update pas":
                 name = data[1]
                 new_pas = data[2]
